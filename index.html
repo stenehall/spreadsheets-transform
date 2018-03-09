@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Spreadsheet transform</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    textarea {
+      border: none;
+      outline: none;
+      background: #ccc;
+      margin: 20px;
+      padding: 20px;
+      box-sizing: border-box;
+      width: calc(100vw - 40px);
+      height: calc(100vh - 40px);
+    }
+  </style>
+</head>
+<body>
+  <textarea></textarea>
+  <script>
+    const $ = document.querySelector.bind(document)
+    const explodeTab = str => str.split(/\r?\n/)
+    const explodeLine = str => str.split(/\t/)
+    const cleanLine = arr => [
+      window.location.hash.substr(1), 
+      arr[0],
+      arr[4],
+      arr[10].replace(/\s/g, ""),
+      arr[12]
+    ].join("\t")
+
+    window.addEventListener("load", () => 
+      $("textarea").addEventListener("input", event => 
+        $("textarea").value = 
+          explodeTab(event.target.value)
+            .map(explodeLine)
+            .map(cleanLine)
+            .join("\n")
+      )
+    )
+  </script>
+</body>
+</html>
