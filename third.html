@@ -45,16 +45,13 @@
           .replace(/�/g, 'Ö')
 
       window.addEventListener('load', () =>
-        $('textarea').addEventListener('input', (
-          event // $('textarea').value =
-        ) => {
-          const a = explodeTab(event.target.value)
+        $('textarea').addEventListener('input', event => {
+          $('textarea').value = explodeTab(event.target.value)
             .map(replace)
             .map(explodeLine)
             .map(cleanLine)
-            // Remove first line
+            .splice(1)
             .join('\n')
-          console.log(a)
         })
       )
     </script>
